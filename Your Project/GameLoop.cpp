@@ -102,7 +102,14 @@ void GameLoop::OnKeyUp(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const
 	case SDLK_DOWN: iRadius = 200; break;
 	case SDLK_RIGHT: iQuality = 50; break;
 	case SDLK_LEFT: iQuality = 50; break;
-	
+	case SDLK_HOME: iRed = 0; break;
+	case SDLK_BACKSPACE: iRed = 0; break;
+	case SDLK_PAGEUP: iGreen = 255; 	break;
+	case SDLK_INSERT: iGreen = 255; break;
+	case SDLK_END: iBlue = 255; break;
+	case SDLK_RETURN: iBlue = 255; break;
+	case SDLK_PAGEDOWN: iAlpha = 150; break;
+	case SDLK_DELETE: iAlpha = 150; break;
 	}
 }
 void GameLoop::OnExit()
