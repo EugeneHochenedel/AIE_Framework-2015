@@ -40,6 +40,15 @@ void GameLoop::LateUpdate()
 
 }
 
+int iX = 800;
+int iY = 450;
+int iRadius = 200;
+int iQuality = 50;
+int iRed = 0;
+int iGreen = 255;
+int iBlue = 255;
+int iAlpha = 150;
+
 void GameLoop::Draw()
 {
 	// Objects are drawn in a painter's layer fashion meaning the first object drawn is on the bottom, and the last one drawn is on the top
@@ -52,7 +61,7 @@ void GameLoop::Draw()
 	Graphics::DrawPoint({ 5, 5 }, { 255, 255, 255, 255 });
 
 	Graphics::DrawRing({ 140, 140 }, 50, 25, { 50, 0, 200, 255 });
-	Graphics::DrawCircle({ 800, 450 }, 200, 50, { 0, 255, 255, 150 });
+	Graphics::DrawCircle({ iX, iY }, iRadius, iQuality, { iRed, iGreen, iBlue, iAlpha });
 }
 
 void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const SDL_Scancode ac_sdlScancode)
@@ -60,6 +69,22 @@ void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, con
 	
 	switch (ac_sdlSym)
 	{
+	case SDLK_w: iY -= 5; break;
+	case SDLK_s: iY += 5; break;
+	case SDLK_d: iX += 5; break;
+	case SDLK_a: iX -= 5; break;
+	case SDLK_UP: iRadius += 5; break;
+	case SDLK_DOWN: iRadius -= 5; break;
+	case SDLK_RIGHT: iQuality += 1; break;
+	case SDLK_LEFT: iQuality -= 1; break;
+	case SDLK_HOME: iRed += 1; break;
+	case SDLK_BACKSPACE: iRed -= 1; break;
+	case SDLK_PAGEUP: iGreen += 1; 	break;
+	case SDLK_INSERT: iGreen -= 1; break;
+	case SDLK_END: iBlue += 1; break;
+	case SDLK_RETURN: iBlue -= 1; break;
+	case SDLK_PAGEDOWN: iAlpha += 1; break;
+	case SDLK_DELETE: iAlpha -= 1; break;
 	case SDLK_ESCAPE: m_bRunning = false; break; // End the loop
 
 	default: printf("%s\n",SDL_GetKeyName(ac_sdlSym)); break;
@@ -69,7 +94,15 @@ void GameLoop::OnKeyUp(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const
 {
 	switch (ac_sdlSym)
 	{
-	default: break;
+	case SDLK_w: iY = 450; break;
+	case SDLK_s: iY = 450; break;
+	case SDLK_d: iX = 800; break;
+	case SDLK_a: iX = 800; break;
+	case SDLK_UP: iRadius = 200; break;
+	case SDLK_DOWN: iRadius = 200; break;
+	case SDLK_RIGHT: iQuality = 50; break;
+	case SDLK_LEFT: iQuality = 50; break;
+	
 	}
 }
 void GameLoop::OnExit()
