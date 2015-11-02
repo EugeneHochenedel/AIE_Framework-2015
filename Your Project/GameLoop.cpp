@@ -40,8 +40,8 @@ void GameLoop::LateUpdate()
 
 }
 
-int iX = 800;
-int iY = 450;
+//int iX = 800;
+//int iY = 450;
 int iRadius = 200;
 int iQuality = 50;
 int iRed = 0;
@@ -61,20 +61,24 @@ void GameLoop::Draw()
 	Graphics::DrawPoint({ 5, 5 }, { 255, 255, 255, 255 });
 
 	Graphics::DrawRing({ 140, 140 }, 50, 25, { 50, 0, 200, 255 });
-	Graphics::DrawCircle({ iX, iY }, iRadius, iQuality, { iRed, iGreen, iBlue, iAlpha });
+	Graphics::DrawCircle({ 800, 450 }, 200, 50, { 0, 255, 255, 150 });
 }
+
+struct System::Point2D<int> Directions;
+struct System::Size2D<int> Sizes;
+struct System::Color<int> Shades;
 
 void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const SDL_Scancode ac_sdlScancode)
 {
 	
 	switch (ac_sdlSym)
 	{
-	case SDLK_w: iY -= 5; break;
-	case SDLK_s: iY += 5; break;
-	case SDLK_d: iX += 5; break;
-	case SDLK_a: iX -= 5; break;
-	case SDLK_UP: iRadius += 5; break;
-	case SDLK_DOWN: iRadius -= 5; break;
+	case SDLK_w: Directions.Y -= 5; break;
+	case SDLK_s: Directions.Y += 5; break;
+	case SDLK_d: Directions.X += 5; break;
+	case SDLK_a: Directions.X -= 5; break;
+	case SDLK_UP: Sizes.W += 5; break;
+	case SDLK_DOWN: Sizes.H -= 5; break;
 	case SDLK_RIGHT: iQuality += 1; break;
 	case SDLK_LEFT: iQuality -= 1; break;
 	case SDLK_HOME: iRed += 1; break;
@@ -94,17 +98,17 @@ void GameLoop::OnKeyUp(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const
 {
 	switch (ac_sdlSym)
 	{
-	case SDLK_w: iY = 450; break;
-	case SDLK_s: iY = 450; break;
-	case SDLK_d: iX = 800; break;
-	case SDLK_a: iX = 800; break;
+	case SDLK_w: Directions.Y = 450; break;
+	case SDLK_s: Directions.Y = 450; break;
+	case SDLK_d: Directions.X = 800; break;
+	case SDLK_a: Directions.X = 800; break;
 	case SDLK_UP: iRadius = 200; break;
 	case SDLK_DOWN: iRadius = 200; break;
 	case SDLK_RIGHT: iQuality = 50; break;
 	case SDLK_LEFT: iQuality = 50; break;
 	case SDLK_HOME: iRed = 0; break;
 	case SDLK_BACKSPACE: iRed = 0; break;
-	case SDLK_PAGEUP: iGreen = 255; 	break;
+	case SDLK_PAGEUP: iGreen = 255; break;
 	case SDLK_INSERT: iGreen = 255; break;
 	case SDLK_END: iBlue = 255; break;
 	case SDLK_RETURN: iBlue = 255; break;
