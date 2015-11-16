@@ -1,6 +1,6 @@
 #include "GameLoop.h"
-
-
+#include <ctime>
+#include <freeglut.h>
 
 void GameLoop::Loop()
 {
@@ -31,32 +31,72 @@ void GameLoop::Loop()
 	}
 }
 
+int iAlpha = 200;
+//int iTimes = 50;
+int iSpeed = 1;
+int iRingX = 52;
+int iRingY = 35;
+//1685
+System::Point2D<int> Middle{ 800, 450 };
+System::Color<int> ColorCode{ 192, 192, 192, iAlpha };
+//ax, ay
+void GameLoop::Draw()
+{
+	// Objects are drawn in a painter's layer fashion meaning the first object drawn is on the bottom, and the last one drawn is on the top
+	// just like a painter would paint onto a canvas
+	for (float iX = 1; iX <= 1599; iX += 34)	
+	{
+			Graphics::DrawLine({ iX, 1 }, { iX, 897}, { 153, 255, 51, 255 });
+	}
+	for (float iY = 0; iY <= 897; iY += 23)
+	{
+		Graphics::DrawLine({ 1, iY }, { 1599, iY }, { 153, 255, 51, 255 });
+	}
+
+	//Graphics::DrawRect({ 10, 400 }, { 13, 100 }, { 160, 65, 255, 255 });
+	//Graphics::DrawRect({ 1575, 400 }, { 13, 100 }, { 255, 255, 255, 255 });
+
+	Graphics::DrawPoint({ 5, 5 }, { 255, 255, 255, 255 });
+
+	Graphics::DrawRing({ iRingX, iRingY }, 11, 25, { 255, 255, 255, 255 });
+	Graphics::DrawCircle({ Middle }, 200, 50, { ColorCode });
+}
+
 void GameLoop::Update()
 {
-
+	/*iTimes += 20;
+	if (iTimes % 240)
+	{
+		iAlpha = 0;
+	}
+	else
+	{
+		iAlpha = iTimes % 2000;
+	}*/
+	if (iRingX <= 1547 && iRingY <= 35)
+	{
+		iRingX += iSpeed;
+	}
+	else if (iRingX >= 1547 && iRingY <= 862)
+	{
+		iRingY += iSpeed;
+	}
+	else if (iRingX >= 52 && iRingY >= 862)
+	{
+		iRingX -= iSpeed;
+	}
+	else if (iRingX <= 52 && iRingY >= 35)
+	{
+		iRingY -= iSpeed;
+	}
 }
 void GameLoop::LateUpdate()
 {
 
 }
 
-System::Point2D<int> Middle{ 800, 450 };
-System::Color<int> ColorCode{ 192, 192, 192, 150 };
 
-void GameLoop::Draw()
-{
-	// Objects are drawn in a painter's layer fashion meaning the first object drawn is on the bottom, and the last one drawn is on the top
-	// just like a painter would paint onto a canvas
 
-	Graphics::DrawRect({ 400, 400 }, { 400, 400 }, { 160, 65, 255, 255 });
-	Graphics::DrawRect({ 250, 500 }, { 1000, 200 }, { 0, 255, 0, 255 });
-
-	Graphics::DrawLine({ 10, 10 }, { 100, 100 }, { 255, 255, 255, 255 });
-	Graphics::DrawPoint({ 5, 5 }, { 255, 255, 255, 255 });
-
-	Graphics::DrawRing({ 140, 140 }, 50, 25, { 50, 0, 200, 255 });
-	Graphics::DrawCircle({ Middle }, 200, 50, { ColorCode });
-}
 
 void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const SDL_Scancode ac_sdlScancode)
 {
@@ -67,14 +107,7 @@ void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, con
 	case SDLK_s: Middle.Y += 5; break;
 	case SDLK_d: Middle.X += 5; break;
 	case SDLK_a: Middle.X -= 5; break;
-	case SDLK_HOME: ColorCode.Red += 1; break;
-	case SDLK_END: ColorCode.Red -= 1; break;
-	case SDLK_PAGEUP: ColorCode.Green += 1; 	break;
-	case SDLK_PAGEDOWN: ColorCode.Green -= 1; break;
-	case SDLK_BACKSPACE: ColorCode.Blue += 1; break;
-	case SDLK_RETURN: ColorCode.Blue -= 1; break;
-	case SDLK_INSERT: ColorCode.Alpha += 1; break;
-	case SDLK_DELETE: ColorCode.Alpha -= 1; break;
+	
 	case SDLK_ESCAPE: m_bRunning = false; break; // End the loop
 
 	default: printf("%s\n",SDL_GetKeyName(ac_sdlSym)); break;
