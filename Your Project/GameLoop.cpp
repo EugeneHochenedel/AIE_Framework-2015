@@ -1,6 +1,5 @@
 #include "GameLoop.h"
 #include <ctime>
-#include <freeglut.h>
 
 void GameLoop::Loop()
 {
@@ -31,15 +30,47 @@ void GameLoop::Loop()
 	}
 }
 
-int iAlpha = 200;
-//int iTimes = 50;
+float iAlpha = 225;
+int iTimes = 122;
 int iSpeed = 1;
 int iRingX = 52;
 int iRingY = 35;
-//1685
 System::Point2D<int> Middle{ 800, 450 };
 System::Color<int> ColorCode{ 192, 192, 192, iAlpha };
-//ax, ay
+
+void GameLoop::Update()
+{
+	iTimes += 1;
+	if (iTimes % 500 == 0)
+	{
+		iAlpha = 0;
+	}
+	else
+	{
+		iAlpha = iTimes % 2000;
+	}
+	if (iRingX < 1547 && iRingY == 35)
+	{
+		iRingX += iSpeed;
+	}
+	else if (iRingX >= 1547 && iRingY < 862)
+	{
+		iRingY += iSpeed;
+	}
+	else if (iRingX > 52 && iRingY >= 862)
+	{
+		iRingX -= iSpeed;
+	}
+	else if (iRingX <= 52 && iRingY > 35)
+	{
+		iRingY -= iSpeed;
+	}
+}
+void GameLoop::LateUpdate()
+{
+
+}
+
 void GameLoop::Draw()
 {
 	// Objects are drawn in a painter's layer fashion meaning the first object drawn is on the bottom, and the last one drawn is on the top
@@ -62,42 +93,6 @@ void GameLoop::Draw()
 	Graphics::DrawCircle({ Middle }, 200, 50, { ColorCode });
 }
 
-void GameLoop::Update()
-{
-	/*iTimes += 20;
-	if (iTimes % 240)
-	{
-		iAlpha = 0;
-	}
-	else
-	{
-		iAlpha = iTimes % 2000;
-	}*/
-	if (iRingX <= 1547 && iRingY <= 35)
-	{
-		iRingX += iSpeed;
-	}
-	else if (iRingX >= 1547 && iRingY <= 862)
-	{
-		iRingY += iSpeed;
-	}
-	else if (iRingX >= 52 && iRingY >= 862)
-	{
-		iRingX -= iSpeed;
-	}
-	else if (iRingX <= 52 && iRingY >= 35)
-	{
-		iRingY -= iSpeed;
-	}
-}
-void GameLoop::LateUpdate()
-{
-
-}
-
-
-
-
 void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const SDL_Scancode ac_sdlScancode)
 {
 	
@@ -107,7 +102,11 @@ void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, con
 	case SDLK_s: Middle.Y += 5; break;
 	case SDLK_d: Middle.X += 5; break;
 	case SDLK_a: Middle.X -= 5; break;
-	
+	/*case SDLK_LEFT: iRingX -= 5; break;
+	case SDLK_RIGHT: iRingX += 5; break;
+	case SDLK_UP: iRingY -= 5; break;
+	case SDLK_DOWN: iRingY += 5; break;*/
+
 	case SDLK_ESCAPE: m_bRunning = false; break; // End the loop
 
 	default: printf("%s\n",SDL_GetKeyName(ac_sdlSym)); break;
@@ -117,6 +116,14 @@ void GameLoop::OnKeyUp(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const
 {
 	switch (ac_sdlSym)
 	{
+	/*case SDLK_UP: if (iRingY >= 35)
+	{
+		iRingY -= iSpeed;
+	}; break;
+	case SDLK_DOWN: while (iRingY <= 862)
+	{
+		iRingY += iSpeed;
+	}; break;*/
 	/*case SDLK_w: iY = 450; break;
 	case SDLK_s: iY = 450; break;
 	case SDLK_d: iX = 800; break;
