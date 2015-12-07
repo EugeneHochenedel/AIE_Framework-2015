@@ -30,25 +30,18 @@ void GameLoop::Loop()
 	}
 }
 
-float iAlpha = 225;
 int iTimes = 122;
 int iSpeed = 1;
 int iRingX = 52;
 int iRingY = 35;
+Vectors<int> ColorHex;
+Vectors<int> RGBAvalues = ColorHex.HexCode("#FF3366");
+
 System::Point2D<int> Middle{ 800, 450 };
-System::Color<int> ColorCode{ 192, 192, 192, iAlpha };
+//System::Color<int> ColorCode{ 192, 192, 192, 255 };
 
 void GameLoop::Update()
 {
-	iTimes += 1;
-	if (iTimes % 500 == 0)
-	{
-		iAlpha = 0;
-	}
-	else
-	{
-		iAlpha = iTimes % 2000;
-	}
 	if (iRingX < 1547 && iRingY == 35)
 	{
 		iRingX += iSpeed;
@@ -90,7 +83,7 @@ void GameLoop::Draw()
 	Graphics::DrawPoint({ 5, 5 }, { 255, 255, 255, 255 });
 
 	Graphics::DrawRing({ iRingX, iRingY }, 11, 25, { 255, 255, 255, 255 });
-	Graphics::DrawCircle({ Middle }, 200, 50, { ColorCode });
+	Graphics::DrawCircle({ Middle }, 200, 50, { RGBAvalues.tX, RGBAvalues.tY, RGBAvalues.tZ, RGBAvalues.tA });
 }
 
 void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const SDL_Scancode ac_sdlScancode)
