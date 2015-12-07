@@ -120,11 +120,11 @@ int wmain()
 
 	cout << "Conversion from radians to degrees:" << endl;
 	fEmpty = ToDegrees(fRadian);
-	cout << fEmpty << endl;
+	cout << fEmpty << "\n\n";
 
 	cout << "Conversion from degrees to radians:" << endl;
 	fEmpty = ToRadians(fDegrees);
-	cout << fEmpty << endl;
+	cout << fEmpty << "\n\n";
 
 	Graphics::Init();
 
