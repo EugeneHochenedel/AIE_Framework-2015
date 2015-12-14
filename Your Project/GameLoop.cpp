@@ -30,18 +30,24 @@ void GameLoop::Loop()
 	}
 }
 
-int iTimes = 122;
+//int iTimes = 122;
 int iSpeed = 1;
-int iRingX = 52;
+int iRingX = 852;
 int iRingY = 35;
 Vectors<int> ColorHex;
 Vectors<int> RGBAvalues = ColorHex.HexCode("#FF3366");
+
+System::Point2D<int> Rect1Min{ 50, 100 };
+System::Point2D<int> Rect1Max{ 195, 250 };
+System::Point2D<int> Rect2Min{ 140, 175 };
+System::Point2D<int> Rect2Max{ 285, 325 };
 
 System::Point2D<int> Middle{ 800, 450 };
 //System::Color<int> ColorCode{ 192, 192, 192, 255 };
 
 void GameLoop::Update()
 {
+	
 	if (iRingX < 1547 && iRingY == 35)
 	{
 		iRingX += iSpeed;
@@ -77,13 +83,23 @@ void GameLoop::Draw()
 		Graphics::DrawLine({ 1, iY }, { 1599, iY }, { 153, 255, 51, 255 });
 	}
 
-	//Graphics::DrawRect({ 10, 400 }, { 13, 100 }, { 160, 65, 255, 255 });
-	//Graphics::DrawRect({ 1575, 400 }, { 13, 100 }, { 255, 255, 255, 255 });
+	Graphics::DrawRect((Rect1Min), { 145, 150 }, { 160, 65, 255, 255 });
+	Graphics::DrawRect((Rect2Min), { 145, 150 }, { 255, 255, 255, 255 });
 
 	Graphics::DrawPoint({ 5, 5 }, { 255, 255, 255, 255 });
 
 	Graphics::DrawRing({ iRingX, iRingY }, 11, 25, { 255, 255, 255, 255 });
 	Graphics::DrawCircle({ Middle }, 200, 50, { RGBAvalues.tX, RGBAvalues.tY, RGBAvalues.tZ, RGBAvalues.tA });
+
+	if (Rect2Min.X <= Rect1Max.X && Rect2Min.Y <= Rect1Max.Y && Rect2Max.X >= Rect1Min.X && Rect2Max.Y >= Rect1Min.Y || Rect2Max.X <= Rect1Max.X && Rect2Max.Y <= Rect1Max.Y)
+	{
+		Graphics::DrawRing({ 800, 500 }, 11, 25, { 255, 255, 255, 255 });
+		cout << "Collision!" << endl;
+	}
+	else if (Rect2Min.X > Rect1Max.X && Rect2Min.Y > Rect1Max.Y || Rect2Max.X < Rect1Min.X && Rect2Max.Y < Rect1Min.Y)
+	{
+		Graphics::DrawRing({ 800, 500 }, 11, 25, { 153, 255, 51, 255 });
+	}
 }
 
 void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, const SDL_Scancode ac_sdlScancode)
@@ -95,10 +111,10 @@ void GameLoop::OnKeyDown(const SDL_Keycode ac_sdlSym, const Uint16 ac_uiMod, con
 	case SDLK_s: Middle.Y += 5; break;
 	case SDLK_d: Middle.X += 5; break;
 	case SDLK_a: Middle.X -= 5; break;
-	/*case SDLK_LEFT: iRingX -= 5; break;
-	case SDLK_RIGHT: iRingX += 5; break;
-	case SDLK_UP: iRingY -= 5; break;
-	case SDLK_DOWN: iRingY += 5; break;*/
+	case SDLK_LEFT: Rect2Min.X -= 5; break;
+	case SDLK_RIGHT: Rect2Min.X += 5; break;
+	case SDLK_UP: Rect2Min.Y -= 5; break;
+	case SDLK_DOWN: Rect2Min.Y += 5; break;
 
 	case SDLK_ESCAPE: m_bRunning = false; break; // End the loop
 
