@@ -38,8 +38,6 @@ public:
 
 	Vectors<T> HexCode(string); //Converts a hexadecimal color code to rgba values
 };
-#include "Mathematics.h"
-
 
 template<typename T>
 Vectors<T>::Vectors() //Creates an empty Vector type

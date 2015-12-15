@@ -1,5 +1,5 @@
 #include "GameLoop.h"
-#include <ctime>
+#include <time.h>
 
 void GameLoop::Loop()
 {
@@ -30,20 +30,12 @@ void GameLoop::Loop()
 	}
 }
 
-//int iTimes = 122;
 int iSpeed = 1;
 int iRingX = 852;
 int iRingY = 35;
-Vectors<int> ColorHex;
-Vectors<int> RGBAvalues = ColorHex.HexCode("#FF3366");
 
-System::Point2D<int> Rect1Min{ 50, 100 };
-System::Point2D<int> Rect1Max{ 195, 250 };
-System::Point2D<int> Rect2Min{ 140, 175 };
-System::Point2D<int> Rect2Max{ 285, 325 };
-
-System::Point2D<int> Middle{ 800, 450 };
-//System::Color<int> ColorCode{ 192, 192, 192, 255 };
+//Vectors<int> ColorHex;
+//Vectors<int> RGBAvalues = ColorHex.HexCode("#FF3366");
 
 void GameLoop::Update()
 {
@@ -69,34 +61,41 @@ void GameLoop::LateUpdate()
 {
 
 }
-
+System::Size2D<int> Rect1Size{ 100, 50 };
+System::Point2D<int> Rect1Min{ 50, 100 };
+System::Point2D<int> Rect1Max = Rect1Min + Rect1Size;
+System::Size2D<int> Rect2Size{ 145, 150 };
+System::Point2D<int> Rect2Min{ 140, 175 };
+System::Point2D<int> Rect2Max = Rect2Min + Rect2Size;
+System::Point2D<int> Middle{ 800, 450 };
 void GameLoop::Draw()
 {
 	// Objects are drawn in a painter's layer fashion meaning the first object drawn is on the bottom, and the last one drawn is on the top
 	// just like a painter would paint onto a canvas
 	for (float iX = 1; iX <= 1599; iX += 34)	
 	{
-			Graphics::DrawLine({ iX, 1 }, { iX, 897}, { 153, 255, 51, 255 });
+		Graphics::DrawLine({ iX, 1 }, { iX, 897}, { 153, 255, 51, 255 });
 	}
 	for (float iY = 0; iY <= 897; iY += 23)
 	{
 		Graphics::DrawLine({ 1, iY }, { 1599, iY }, { 153, 255, 51, 255 });
 	}
 
-	Graphics::DrawRect((Rect1Min), { 145, 150 }, { 160, 65, 255, 255 });
-	Graphics::DrawRect((Rect2Min), { 145, 150 }, { 255, 255, 255, 255 });
+	Graphics::DrawRect((Rect1Min), { Rect1Size }, { 160, 65, 255, 255 });
+	Graphics::DrawRect((Rect2Min), { Rect2Size }, { 255, 255, 255, 255 });
 
 	Graphics::DrawPoint({ 5, 5 }, { 255, 255, 255, 255 });
 
 	Graphics::DrawRing({ iRingX, iRingY }, 11, 25, { 255, 255, 255, 255 });
-	Graphics::DrawCircle({ Middle }, 200, 50, { RGBAvalues.tX, RGBAvalues.tY, RGBAvalues.tZ, RGBAvalues.tA });
 
-	if (Rect2Min.X <= Rect1Max.X && Rect2Min.Y <= Rect1Max.Y && Rect2Max.X >= Rect1Min.X && Rect2Max.Y >= Rect1Min.Y || Rect2Max.X <= Rect1Max.X && Rect2Max.Y <= Rect1Max.Y)
+	//Graphics::DrawCircle({ Middle }, 200, 50, { RGBAvalues.tX, RGBAvalues.tY, RGBAvalues.tZ, RGBAvalues.tA });
+
+	if (Rect2Min.X <= Rect1Max.X && Rect2Min.Y <= Rect1Max.Y && Rect2Max.X >= Rect1Min.X && Rect2Max.Y >= Rect1Min.Y)
 	{
 		Graphics::DrawRing({ 800, 500 }, 11, 25, { 255, 255, 255, 255 });
-		cout << "Collision!" << endl;
+		cout << "Collision! " << clock() << endl;
 	}
-	else if (Rect2Min.X > Rect1Max.X && Rect2Min.Y > Rect1Max.Y || Rect2Max.X < Rect1Min.X && Rect2Max.Y < Rect1Min.Y)
+	else
 	{
 		Graphics::DrawRing({ 800, 500 }, 11, 25, { 153, 255, 51, 255 });
 	}
