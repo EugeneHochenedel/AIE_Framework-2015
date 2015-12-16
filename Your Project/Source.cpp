@@ -7,23 +7,23 @@
 
 int wmain()
 {
-	Vectors<float> Scalar1(5);
-	Vectors<float> Scalar2(8);
-	Vectors<float> Vec2D1(5, 10);
-	Vectors<float> Vec2D2(6, 8);
-	Vectors<float> Vec3D1(7, 10, 16);
-	Vectors<float> Vec3D2(8, 2, 11);
-	Vectors<float> Vec4D1(7, 10, 16, 12);
+	Vectors<double> Scalar1(5);
+	Vectors<double> Scalar2(8);
+	Vectors<double> Vec2D1(5, 10);
+	Vectors<double> Vec2D2(6, 8);
+	Vectors<double> Vec3D1(7, 10, 16);
+	Vectors<double> Vec3D2(8, 2, 11);
+	Vectors<double> Vec4D1(7, 10, 16, 12);
 	
 	Vectors<int> VecHex;
 	Vectors<int> RGBA;
 
-	float fRadian = 3.4;
-	float fDegrees = 23;
-	float fEmpty;
+	double fRadian = 3.4;
+	double fDegrees = 23;
+	double fEmpty;
 
 	cout << "Overloaded addition operator with scalar values:" << endl;
-	Vectors<float> Scalar = Scalar1 + Scalar2;
+	Vectors<double> Scalar = Scalar1 + Scalar2;
 	cout << Scalar.tX << "\n\n";
 
 	cout << "Overloaded subtraction operator with scalar values:" << endl;
@@ -39,7 +39,7 @@ int wmain()
 	cout << Scalar.tX << "\n\n";
 
 	cout << "Overloaded addition operator with 2D Vectors:" << endl;
-	Vectors<float> Vec2D = Vec2D1 + Vec2D2;
+	Vectors<double> Vec2D = Vec2D1 + Vec2D2;
 	cout << Vec2D.tX << ", " << Vec2D.tY << "\n\n";
 
 	cout << "Overloaded subtraction operator with 2D Vectors:" << endl;
@@ -71,7 +71,7 @@ int wmain()
 	cout << Vec2D.tX << ", " << Vec2D.tY << "\n\n";
 
 	cout << "Overloaded addition operator with 3D Vectors:" << endl;
-	Vectors<float> Vec3D = Vec3D1 + Vec3D2;
+	Vectors<double> Vec3D = Vec3D1 + Vec3D2;
 	cout << Vec3D.tX << ", " << Vec3D.tY << ", " << Vec3D.tZ << "\n\n";
 
 	cout << "Overloaded subtraction operator with 3D Vectors:" << endl;
@@ -111,7 +111,7 @@ int wmain()
 	cout << Vec3D.tX << ", " << Vec3D.tY << ", " << Vec3D.tZ << "\n\n";
 
 	cout << "Normalization of a 4D Vector:" << endl;
-	Vectors<float> Vec4D = Normalizing4D(Vec4D1);
+	Vectors<double> Vec4D = Normalizing4D(Vec4D1);
 	cout << Vec4D.tX << ", " << Vec4D.tY << ", " << Vec4D.tZ << ", " << Vec4D.tA << "\n\n";
 
 	cout << "Conversion of a hexadecimal to a RGBA value represented as a 4D Vector: \n#FF3366" << endl;
